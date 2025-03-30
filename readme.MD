@@ -11,4 +11,15 @@ Worker pool is a useful design pattern, for managing concurency system. Worker p
 The Worker pool WorkFlow is depicted below: 
 ![Alt text](worker-pool-scheme.png)
 
-
+## API Documentation
+1. Payload
+payload is defined in json format as below:
+```
+{
+    receiver string,
+    message string
+}
+```
+2. url
+- `http://localhost:8080/api/mail` ... demonstrate sending email with concurency 
+- `http://localhost:8080/api/mail/v2` ... demonstrate sending email without concurency 
