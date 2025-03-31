@@ -9,14 +9,15 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/joho/godotenv"
+	_ "github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic(err)
-	}
+	var err error
+	// err = godotenv.Load(".env")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	mail.M = mail.NewMail()
 	mail.M.SetAuth()

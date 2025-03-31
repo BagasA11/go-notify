@@ -65,7 +65,7 @@ func (m *Mail) SendMail(content dto.Body) error {
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(writer, "Subject: Test Email\r\n\r\n %s.", content.Message)
+	_, err = fmt.Fprintf(writer, "Subject: %s\r\n\r\n %s.", content.Subject, content.Message)
 	if err != nil {
 		return err
 	}
