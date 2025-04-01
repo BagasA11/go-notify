@@ -54,7 +54,10 @@ func (m *Mail) SendMail(content dto.Body) error {
 		return ErrAuth
 	}
 	// Set the sender and recipient
-	if err = client.Mail(m.From); err != nil {
+	// if err = client.Mail(m.From); err != nil {
+	// 	return ErrSender
+	// }
+	if err = client.Mail(content.Sender); err != nil {
 		return ErrSender
 	}
 	if err = client.Rcpt(content.Receiver); err != nil {

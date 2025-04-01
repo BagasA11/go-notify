@@ -24,13 +24,9 @@ func NewWorkerPool(worker uint, size int) *WorkerPool {
 	}
 }
 
-func (wp *WorkerPool) Add(request dto.Body, rty ...uint) {
-	r := uint(0)
-	if rty != nil {
-		r = rty[0]
-	}
+func (wp *WorkerPool) Add(request dto.Body, rty uint) {
 	q := queue{
-		retry: r,
+		retry: rty,
 		Body:  request,
 	}
 	wp.Queue <- q

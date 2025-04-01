@@ -4,25 +4,29 @@ import (
 	"go-notify/dto"
 	"go-notify/jobs"
 	"go-notify/mail"
+	"log"
 	"net/http"
 	"sync"
 
 	"github.com/gin-gonic/gin"
 
-	_ "github.com/joho/godotenv"
+	"github.com/joho/godotenv"
+	// _ "github.com/joho/godotenv"
 )
 
 func main() {
 	var err error
-	// err = godotenv.Load(".env")
-	// if err != nil {
-	// 	panic(err)
-	// }
+	err = godotenv.Load(".env")
+	if err != nil {
+		panic(err)
+	}
 
 	mail.M = mail.NewMail()
 	mail.M.SetAuth()
 
 	var wg = &sync.WaitGroup{}
+	// You can use other settings for the number of workers and queues.
+	// Experiment and adjust to your device
 	wp := jobs.NewWorkerPool(5, 25)
 
 	wg.Add(int(wp.Worker))
@@ -41,7 +45,8 @@ func main() {
 			})
 			return
 		}
-		wp.Add(req)
+		log.Printf("binding sender:%s receiver:%s\n", req.Sender, req.Receiver)
+		wp.Add(req, 0)
 		ctx.JSON(200, gin.H{
 			"message": "ok",
 		})
